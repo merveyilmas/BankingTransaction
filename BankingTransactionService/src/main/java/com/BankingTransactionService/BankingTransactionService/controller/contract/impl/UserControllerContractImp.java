@@ -29,11 +29,11 @@ public class UserControllerContractImp implements UserControllerContract {
     @Override
     public UserDTO saveUser(UserSaveRequest saveRequest) {
 
-        User user = UserMapper.INTANCE.converToUser(saveRequest);
+        User user = UserMapper.INSTANCE.converToUser(saveRequest);
 
         user = userEntityService.save(user);
 
-        return UserMapper.INTANCE.converToUserDTO(user);
+        return UserMapper.INSTANCE.converToUserDTO(user);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class UserControllerContractImp implements UserControllerContract {
 
         List<User> users = userEntityService.findAll();
 
-        List<UserDTO> userDTOS = UserMapper.INTANCE.convertToUserDTOs(users);
+        List<UserDTO> userDTOS = UserMapper.INSTANCE.convertToUserDTOs(users);
 
         return userDTOS;
     }
@@ -52,6 +52,6 @@ public class UserControllerContractImp implements UserControllerContract {
 
         User user = this.userEntityService.findByUsernameOrEmail(emailOrUsername,usernameOrEmail);
 
-        return UserMapper.INTANCE.converToUserDTO(user);
+        return UserMapper.INSTANCE.converToUserDTO(user);
     }
 }

@@ -40,7 +40,7 @@ public class AuthService {
         return token;
     }
     public User getUserInfo(){
-        // Şu anki kimlik doğrulama bilgilerini alın
+        // Su anki kimlik dogrulama bilgilerini alin
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         String username = authentication.getName();
@@ -52,7 +52,7 @@ public class AuthService {
     }
 
     public UUID getUserId(){
-        // Şu anki kimlik doğrulama bilgilerini alın
+        // Su anki kimlik dogrulama bilgilerini alin
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if(authentication != null && !authentication.getName().equals("anonymousUser")){

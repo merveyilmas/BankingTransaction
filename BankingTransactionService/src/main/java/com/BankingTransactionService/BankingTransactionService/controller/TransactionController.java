@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -25,16 +26,14 @@ public class TransactionController {
     public ResponseEntity<String> transferMoney(@RequestBody TransferRequest transferRequest){
 
         this.transactionControllerContract.transferMoney(transferRequest);
-
         return new ResponseEntity<>("Transfer successful", HttpStatus.OK);
     }
 
 
     @GetMapping("/account/{accountId}")
-    public ResponseEntity<RestResponse<TransactionDTO>> getTransactionByAccountId(@PathVariable @NotBlank UUID accountId){
+    public ResponseEntity<RestResponse<List<TransactionDTO>>> getTransactionsByAccountId(@PathVariable @NotBlank UUID accountId){
 
-        TransactionDTO response = this.transactionControllerContract.getTransactionByAccountId(accountId);
-
+        List<TransactionDTO> response = this.transactionControllerContract.getTransactionsByAccountId(accountId);
         return ResponseEntity.ok(RestResponse.of(response));
     }
 }
