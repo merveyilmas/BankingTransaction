@@ -27,7 +27,7 @@ public class UserControllerContractImp implements UserControllerContract {
     private final UserEntityService userEntityService;
 
     @Override
-    public UserDTO saveUser(UserSaveRequest saveRequest) {
+    public UserDTO registerNewUser(UserSaveRequest saveRequest) {
 
         User user = UserMapper.INSTANCE.converToUser(saveRequest);
 

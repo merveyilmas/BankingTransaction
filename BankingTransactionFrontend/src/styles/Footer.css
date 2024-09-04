@@ -1,0 +1,50 @@
+.footer-container {
+    background-color: var(--footer-background-color); /* Tema değişkeni */
+    color: var(--footer-text-color); /* Tema değişkeni */
+    text-align: center;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2); /* Box shadow efekti */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.footer-socials {
+    margin: 0.5rem 0;
+}
+
+.footer-socials .p-button {
+    margin: 0 0.25rem;
+}
+
+.footer-bottom {
+    display : flex;
+    flex-direction: column;   
+}
+
+
+/* Genel link stilleri */
+.footer-bottom a {
+    color: var(--footer-link-color); /* Tema rengine göre ayarlanacak değişken */
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.footer-bottom a:hover {
+    color: var(--footer-link-hover-color); /* Hover için değişken */
+}
+
+/* Dark Blue Tema */
+.theme-lara-dark-blue {
+    --footer-link-color: #fff;
+    --footer-link-hover-color: #ddd;
+}
+
+/* Diğer Temalar */
+.theme-light {
+    --footer-link-color: #ccc;
+    --footer-link-hover-color: #aaa;
+}

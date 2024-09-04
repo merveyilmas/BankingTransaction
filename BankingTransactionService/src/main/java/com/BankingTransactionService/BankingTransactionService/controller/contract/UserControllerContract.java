@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface UserControllerContract {
 
-    UserDTO saveUser (UserSaveRequest saveRequest);
+    UserDTO registerNewUser(UserSaveRequest saveRequest);
 
     List<UserDTO> getAllUsers();
 

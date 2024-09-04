@@ -37,9 +37,9 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<RestResponse<UserDTO>> saveUser(@RequestBody UserSaveRequest saveRequest){
+    public ResponseEntity<RestResponse<UserDTO>> registerNewUser(@RequestBody UserSaveRequest saveRequest){
 
-        UserDTO userDTO = this.userControllerContract.saveUser(saveRequest);
+        UserDTO userDTO = this.userControllerContract.registerNewUser(saveRequest);
         return ResponseEntity.ok(RestResponse.of(userDTO));
     }
 
