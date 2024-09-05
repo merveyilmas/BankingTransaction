@@ -24,7 +24,15 @@ export default function LeftMenu() {
                     command: () => {
                         navigate('/home/money-transfers');
                     }
-                }
+                },
+                {
+                    label: 'Transaction History',
+                    icon: 'pi pi-money-bill',
+                    command: () => {
+                        navigate('/home/transaction-history');
+                    }
+                },
+                
 
             ]
         }

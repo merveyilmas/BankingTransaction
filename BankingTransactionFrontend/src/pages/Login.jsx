@@ -4,7 +4,7 @@ import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { Image } from 'primereact/image';
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import UserService from '../services/UserService';
 import { jwtDecode } from 'jwt-decode';
 import { Toast } from 'primereact/toast';
@@ -13,56 +13,71 @@ export default function Login() {
 
     const toast = useRef(null);
     const navigate = useNavigate();
-    const userService = new UserService()
+
+    const userService = new UserService();
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [usernameError, setUsernameError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+
+    const validateForm = () => {
+        let isValid = true;
+        if (!username) {
+            setUsernameError('Username is required.');
+            isValid = false;
+        } else {
+            setUsernameError('');
+        }
+
+        if (!password) {
+            setPasswordError('Password is required.');
+            isValid = false;
+        } else {
+            setPasswordError('');
+        }
+
+        return isValid;
+    };
 
     const handleLogin = async () => {
-
-        // console.log('Username:', username);
-        // console.log('Password:', password);
+        if (!validateForm()) {
+            return;
+        }
 
         const loginDatas = {
             "usernameOrEmail": username,
             "password": password
-        }
+        };
 
         await userService.login(loginDatas).then(result => {
 
             if (result.status === 200) {
-
-                const token = result.data;         
-              
+                const token = result.data;
                 sessionStorage.setItem('token', token.accessToken);
                 console.log("Stored token:", sessionStorage.getItem('token'));
 
                 const decodedUserNameFromToken = jwtDecode(token.accessToken);
-                console.log(decodedUserNameFromToken)
+                console.log(decodedUserNameFromToken);
 
                 sessionStorage.setItem('username', decodedUserNameFromToken.sub);
-
-                navigate("/home")
+                navigate("/home");
                 toast.current.show({ severity: 'success', summary: 'Success', detail: result.data.message, life: 3000 });
             }
+
         }).catch(error => {
-            console.log("***********")
             console.error(error);
             toast.current.show({ severity: 'error', summary: 'Error', detail: error.response.data.data.message, life: 3000 });
-        })
-
+        });
     };
 
     return (
-
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minHeight: '100vh', backgroundImage: 'url("/login2.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}>
-
             <Toast ref={toast} />
 
             <div className="login-container" style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
                 <Card style={{ width: '100%', maxWidth: '40%' }}>
                     <div className="p-field">
-
                         <div style={{ width: '100%', maxWidth: '80%', overflow: 'hidden', borderRadius: '15px', marginBottom: '2%' }}>
                             <Image src="/logo1.png" alt="Image" width="100%" className="p-inputtext-sm p-d-block p-mb-2" />
                         </div>
@@ -75,6 +90,7 @@ export default function Login() {
                             placeholder='Enter Username'
                             style={{ width: '90%' }}
                         />
+                        {usernameError && <small className="p-error">{usernameError}</small>}
                     </div>
                     <div className="p-field p-mb-4">
                         <Password
@@ -86,6 +102,7 @@ export default function Login() {
                             placeholder='Enter Password'
                             style={{ width: '90%' }}
                         />
+                        {passwordError && <small className="p-error">{passwordError}</small>}
                     </div>
                     <div className="button-container">
                         <Button
@@ -108,25 +125,30 @@ export default function Login() {
                     background-size: 'cover';
                     background-repeat: 'no-repeat';
                 }
-        
+
                 .p-field input,
                 .p-field .p-password input {
                     width: 100%;
                 }
-        
+
                 .button-container {
                     display: flex;
                     justify-content: center;
                     margin-top: 1rem;
                     width: 100%;
                 }
-        
+
                 .button-container button {
                     width: 100%;
                 }
-                    
-            `}</style>
-        </div>
 
+                .p-error {
+                    color: red;
+                    font-size: 0.75rem;
+                    margin-top: 0.5rem;
+                }
+            `}</style>
+            
+        </div>
     );
 }

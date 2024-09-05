@@ -8,6 +8,7 @@ import Footer from '../layouts/Footer'
 import LeftMenu from '../layouts/LeftMenu';
 import MoneyTransfers from '../pages/MoneyTransfers';
 import MyAccounts from '../pages/MyAccounts';
+import TransactionHistory from '../pages/TransactionHistory';
 
 import EditUser from '../pages/EditUser';
 
@@ -88,7 +89,7 @@ export default function HomepageDashboard() {
             <Route exact path="/home" element={<Homepage />} />
             <Route exact path="/my-accounts" element={<MyAccounts />} />
             <Route exact path="/money-transfers" element={<MoneyTransfers />} />
-            <Route exact path="/edit-user" element={<EditUser />} />
+            <Route exact path="/transaction-history" element={<TransactionHistory />} />
           </Routes>
         </div>
       </div>

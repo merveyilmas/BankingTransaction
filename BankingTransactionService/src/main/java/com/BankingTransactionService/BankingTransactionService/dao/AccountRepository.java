@@ -2,6 +2,7 @@ package com.BankingTransactionService.BankingTransactionService.dao;
 
 import com.BankingTransactionService.BankingTransactionService.entity.Account;
 import com.BankingTransactionService.BankingTransactionService.entity.Transaction;
+import com.BankingTransactionService.BankingTransactionService.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +13,7 @@ import java.util.UUID;
 public interface AccountRepository extends JpaRepository<Account, UUID> {
 
     List<Account> findByNumberContainingOrNameContaining(String number, String name);
+    List<Account> findByUser(User user);
     boolean existsByNumber(String number);
     boolean existsByName(String name);
 }

@@ -2,10 +2,12 @@ package com.BankingTransactionService.BankingTransactionService.service.entitySe
 
 import com.BankingTransactionService.BankingTransactionService.dao.AccountRepository;
 import com.BankingTransactionService.BankingTransactionService.entity.Account;
+import com.BankingTransactionService.BankingTransactionService.entity.User;
 import com.BankingTransactionService.BankingTransactionService.general.BaseEntityService;
 import com.BankingTransactionService.BankingTransactionService.service.AuthService;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -21,9 +23,9 @@ public class AccountEntityService extends BaseEntityService<Account, UUID, Accou
         this.authService = authService;
     }
 
-    public Account createAccount(){
+    public Account createAccount() {
 
-        String userName = this.authService.getUserInfo().getUsername();
+        User user = this.authService.getUserInfo();
 
         // Generate unique account number
         String uniqueNumber = UUID.randomUUID().toString().replace("-", "").substring(0, 12);
@@ -33,22 +35,32 @@ public class AccountEntityService extends BaseEntityService<Account, UUID, Accou
         }
 
         // Create a unique account name
-        String uniqueName = userName + "-" + new Random().nextInt(9999);
+        String uniqueName = user.getUsername() + "-" + new Random().nextInt(9999);
 
         while (accountRepository.existsByName(uniqueName)) {
-            uniqueName = userName + "-" + new Random().nextInt(9999); // Yeniden oluştur
+            uniqueName = user.getUsername() + "-" + new Random().nextInt(9999); // Yeniden oluştur
         }
 
         Account account = new Account();
         account.setName(uniqueName);
         account.setNumber(uniqueNumber);
+        account.setBalance(BigDecimal.ZERO);
+        account.setUser(user);
 
         return accountRepository.save(account);
     }
 
-    public List<Account> searchAccount(String number, String name){
+    public List<Account> searchAccount(String number, String name) {
 
         List<Account> accounts = accountRepository.findByNumberContainingOrNameContaining(number, name);
         return accounts;
     }
+
+    public List<Account> getAllAccountsByUser() {
+
+        User user = this.authService.getUserInfo();
+        List<Account> accounts = accountRepository.findByUser(user);
+
+        return accounts;
     }
+}

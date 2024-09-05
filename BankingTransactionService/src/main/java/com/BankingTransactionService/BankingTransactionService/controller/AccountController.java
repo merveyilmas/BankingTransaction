@@ -3,6 +3,7 @@ package com.BankingTransactionService.BankingTransactionService.controller;
 import com.BankingTransactionService.BankingTransactionService.controller.contract.AccountControllerContract;
 import com.BankingTransactionService.BankingTransactionService.dto.AccountDTO;
 import com.BankingTransactionService.BankingTransactionService.request.AccountUpdateRequest;
+import com.BankingTransactionService.BankingTransactionService.response.AllAccountsResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,5 +52,11 @@ public class AccountController {
     public ResponseEntity<AccountDTO> getAccountById(@PathVariable UUID id) {
         AccountDTO account = this.accountControllerContract.getAccountById(id);
         return ResponseEntity.ok(account);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<AllAccountsResponse>> getAllAccountsByUser() {
+        List<AllAccountsResponse> accounts = this.accountControllerContract.getAllAccountsByUser();
+        return ResponseEntity.ok(accounts);
     }
 }

@@ -25,7 +25,7 @@ export default class UserService {
             url: `http://${ipAdress}:${port}/api/users/register`,
             data: datas            
         })
-    }
+    }  
   
 
 }
