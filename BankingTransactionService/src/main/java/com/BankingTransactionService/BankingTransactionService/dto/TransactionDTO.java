@@ -2,7 +2,6 @@ package com.BankingTransactionService.BankingTransactionService.dto;
 
 import com.BankingTransactionService.BankingTransactionService.entity.Account;
 import com.BankingTransactionService.BankingTransactionService.enums.EnumTransactionStatus;
-import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

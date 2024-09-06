@@ -50,9 +50,14 @@ public class AccountEntityService extends BaseEntityService<Account, UUID, Accou
         return accountRepository.save(account);
     }
 
-    public List<Account> searchAccount(String number, String name) {
+    public List<Account> searchAccount(String nameOrNumber) {
 
-        List<Account> accounts = accountRepository.findByNumberContainingOrNameContaining(number, name);
+        List<Account> accounts = accountRepository.findByNameContaining(nameOrNumber);
+
+        if (accounts.isEmpty()) {
+            accounts = accountRepository.findByNumberContaining(nameOrNumber);
+        }
+
         return accounts;
     }
 

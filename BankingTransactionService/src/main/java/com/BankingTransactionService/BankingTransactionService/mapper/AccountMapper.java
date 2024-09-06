@@ -3,6 +3,7 @@ package com.BankingTransactionService.BankingTransactionService.mapper;
 import com.BankingTransactionService.BankingTransactionService.dto.AccountDTO;
 import com.BankingTransactionService.BankingTransactionService.entity.Account;
 import com.BankingTransactionService.BankingTransactionService.request.AccountUpdateRequest;
+import com.BankingTransactionService.BankingTransactionService.response.DetailSpecificAccountResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -17,6 +18,8 @@ public interface AccountMapper {
     AccountMapper INSTANCE = Mappers.getMapper(AccountMapper.class);
 
     AccountDTO converToAccountDTO(Account account);
+
+    DetailSpecificAccountResponse converToDetailSpecificAccountResponse(Account account);
 
     List<AccountDTO> convertToAccountDTOs(List<Account> accounts);
 

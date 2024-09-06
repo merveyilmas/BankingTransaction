@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
@@ -8,22 +8,68 @@ import { Toolbar } from 'primereact/toolbar';
 import { Toast } from 'primereact/toast';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { useNavigate } from 'react-router-dom';
+import AccountService from '../services/AccountService';
+import { IconField } from "primereact/iconfield";
+import { InputIcon } from "primereact/inputicon";
 
-const BankAccountTable = ({ accounts, onDelete, onCreate, onUpdate }) => {
+const BankAccountTable = ({ accounts, onDelete, onCreate, onUpdate, fetchAccounts }) => { // fetchAccounts props eklendi
 
     const toast = useRef(null);
     const navigate = useNavigate();
+    const accountService = new AccountService();
 
     const [selectedAccounts, setSelectedAccounts] = useState(null);
-    const [globalFilter, setGlobalFilter] = useState(null);
+    const [globalFilter, setGlobalFilter] = useState('');
     const [dialogVisible, setDialogVisible] = useState(false);
-    const [accountDetailsVisible, setAccountDetailsVisible] = useState(false); // Hesap detayları için dialog kontrolü
+    const [accountDetailsVisible, setAccountDetailsVisible] = useState(false);
     const [selectedAccount, setSelectedAccount] = useState(null);
     const [accountUpdateData, setAccountUpdateData] = useState({ name: '', balance: '' });
+    const [filteredAccounts, setFilteredAccounts] = useState(accounts); // Filtrelenmiş hesaplar
 
-    const onRowSelect = (e) => {
-        setSelectedAccount(e.data);  // Seçilen hesap bilgilerini kaydet
-        setAccountDetailsVisible(true);  // Detayları göstermek için modal aç
+    useEffect(() => {
+     
+        const performSearch = async () => {
+
+            if (!globalFilter || globalFilter === "") {
+               
+                fetchAccounts();
+                setFilteredAccounts(accounts)
+            } else {
+                setFilteredAccounts([])
+
+                await handleSearch(globalFilter);
+            }
+
+        };
+        performSearch(); // Asenkron fonksiyonu çağır
+
+    }, [globalFilter]);
+
+    const handleSearch = async (filter) => {
+
+        try {
+            const result = await accountService.searchAccount(filter);
+            if (result.status === 200) {
+                setFilteredAccounts(result.data); 
+            }
+        } catch (error) {
+            console.error(error);
+        }
+
+    };
+
+    const onRowSelect = async (e) => {
+
+        try {
+            const result = await accountService.getAccountById(e.data.id);
+            if (result.status === 200) {
+                setSelectedAccount(result.data);
+                setAccountDetailsVisible(true);
+            }
+        } catch (error) {
+            console.error('Error fetching account details:', error);
+            toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed to fetch account details.', life: 3000 });
+        }
     };
 
     const onDeleteSelected = () => {
@@ -41,9 +87,9 @@ const BankAccountTable = ({ accounts, onDelete, onCreate, onUpdate }) => {
             header: 'Confirmation',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                const newAccount = { id: accounts.length + 1, number: `AC-${Date.now()}`, name: 'New Account', balance: 0 };
-                onCreate(newAccount);
-                toast.current.show({ severity: 'success', summary: 'Account Created', detail: 'New account has been created.', life: 3000 });
+                //const newAccount = { id: accounts.length + 1, number: `AC-${Date.now()}`, name: 'New Account', balance: 0 };
+                onCreate();
+                // toast.current.show({ severity: 'success', summary: 'Account Created', detail: 'New account has been created.', life: 3000 });
             }
         });
     };
@@ -68,12 +114,18 @@ const BankAccountTable = ({ accounts, onDelete, onCreate, onUpdate }) => {
     const header = (
         <div className="table-header">
             <h5 className="mx-0 my-1">Bank Accounts</h5>
-            <span className="p-input-icon-left">
-                <i className="pi pi-search ml-2" />
-                <InputText type="search" onInput={(e) => setGlobalFilter(e.target.value)} placeholder="    Search..." />
-            </span>
+            <IconField iconPosition="left">
+                <InputIcon className="pi pi-search"> </InputIcon>
+                <InputText
+                    type="search"
+                    onInput={(e) => setGlobalFilter(e.target.value)}
+                    placeholder="Search by Account Number or Name"
+                    style={{ width: '23rem' }}
+                />
+            </IconField>
         </div>
     );
+    
 
     const toolbarTemplate = () => {
         return (
@@ -91,10 +143,9 @@ const BankAccountTable = ({ accounts, onDelete, onCreate, onUpdate }) => {
             <Toolbar className="mb-4" left={toolbarTemplate} />
 
             <DataTable
-                value={accounts}
+                value={globalFilter.length > 0 ? filteredAccounts : accounts} // Filtrelenmiş hesaplar gösteriliyor
                 selection={selectedAccounts}
                 onSelectionChange={(e) => setSelectedAccounts(e.value)}
-                globalFilter={globalFilter}
                 header={header}
                 paginator
                 rows={10}
@@ -109,28 +160,27 @@ const BankAccountTable = ({ accounts, onDelete, onCreate, onUpdate }) => {
                 <Column field="balance" header="Balance" sortable></Column>
             </DataTable>
 
-            {/* Hesap güncelleme için Dialog */}
             <Dialog visible={dialogVisible} onHide={() => setDialogVisible(false)} header="Update Account" modal>
-                <div>
-                    <div className="p-field">
+                <div className="p-fluid">
+                    <div className="p-field" style={{ marginBottom: '1rem' }}>
                         <label htmlFor="name">Account Name</label>
                         <InputText id="name" value={accountUpdateData.name} onChange={(e) => setAccountUpdateData({ ...accountUpdateData, name: e.target.value })} />
                     </div>
-                    <div className="p-field">
+                    <div className="p-field" style={{ marginBottom: '1rem' }}>
                         <label htmlFor="balance">Balance</label>
                         <InputText id="balance" value={accountUpdateData.balance} onChange={(e) => setAccountUpdateData({ ...accountUpdateData, balance: e.target.value })} />
                     </div>
                 </div>
-                <Button label="Update" icon="pi pi-check" onClick={onSaveUpdate} />
+                <Button label="Update" icon="pi pi-check" onClick={onSaveUpdate} style={{ marginTop: '1rem' }} />
             </Dialog>
 
-            {/* Hesap Detayları için Dialog */}
             <Dialog visible={accountDetailsVisible} onHide={() => setAccountDetailsVisible(false)} header="Account Details" modal>
                 {selectedAccount && (
                     <div>
                         <p><strong>Account Number:</strong> {selectedAccount.number}</p>
                         <p><strong>Account Name:</strong> {selectedAccount.name}</p>
                         <p><strong>Balance:</strong> {selectedAccount.balance}</p>
+                        <p><strong>Created At:</strong> {selectedAccount.createdAt}</p>
                     </div>
                 )}
             </Dialog>

@@ -17,12 +17,12 @@ export default class AccountService {
         })
     }
 
-    searchAccount(accountNumber, accountName) {
+    searchAccount(nameOrNumber) {
 
         return axios({
             method: 'post',
             maxBodyLength: Infinity,
-            url: `http://${ipAdress}:${port}/api/accounts/search?${accountNumber}&${accountName}`,
+            url: `http://${ipAdress}:${port}/api/accounts/search?nameOrNumber=${nameOrNumber}`,
             headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') }
         })
     }

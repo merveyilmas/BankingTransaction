@@ -23,6 +23,12 @@ public interface UserMapper {
 
     User converToUser(UserSaveRequest saveRequest);
 
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "username", source = "username")
+    @Mapping(target = "email", source = "email")
+    @Mapping(target = "password", source = "password")
+    @Mapping(target = "createdAt", source = "createdAt")
+    @Mapping(target = "updatedAt", source = "updatedAt")
     UserDTO converToUserDTO(User user);
 
     List<UserDTO> convertToUserDTOs(List<User> users);

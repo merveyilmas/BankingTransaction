@@ -8,18 +8,25 @@ import { useNavigate } from "react-router-dom";
 import UserService from '../services/UserService';
 import { jwtDecode } from 'jwt-decode';
 import { Toast } from 'primereact/toast';
+import { Dialog } from 'primereact/dialog';
 
 export default function Login() {
-
     const toast = useRef(null);
     const navigate = useNavigate();
-
     const userService = new UserService();
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [usernameError, setUsernameError] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    const [showRegisterModal, setShowRegisterModal] = useState(false);
+    const [registerData, setRegisterData] = useState({
+        registerUsername: '',
+        registerEmail: '',
+        registerPassword: '',
+        confirmPassword: ''
+    });
+    const [registerError, setRegisterError] = useState('');
 
     const validateForm = () => {
         let isValid = true;
@@ -51,24 +58,52 @@ export default function Login() {
         };
 
         await userService.login(loginDatas).then(result => {
-
             if (result.status === 200) {
                 const token = result.data;
                 sessionStorage.setItem('token', token.accessToken);
-                console.log("Stored token:", sessionStorage.getItem('token'));
 
                 const decodedUserNameFromToken = jwtDecode(token.accessToken);
-                console.log(decodedUserNameFromToken);
-
                 sessionStorage.setItem('username', decodedUserNameFromToken.sub);
                 navigate("/home");
                 toast.current.show({ severity: 'success', summary: 'Success', detail: result.data.message, life: 3000 });
             }
-
         }).catch(error => {
-            console.error(error);
             toast.current.show({ severity: 'error', summary: 'Error', detail: error.response.data.data.message, life: 3000 });
         });
+    };
+
+    const handleRegister = async () => {
+        const { registerUsername, registerEmail, registerPassword, confirmPassword } = registerData;
+
+        if (!registerUsername || !registerEmail || !registerPassword || !confirmPassword) {
+            toast.current.show({ severity: 'error', summary: 'Error', detail: 'All fields are required', life: 3000 });
+            return;
+        }
+
+        if (registerPassword !== confirmPassword) {
+            setRegisterError('Passwords do not match.');
+            return;
+        } else {
+            setRegisterError('');
+        }
+
+        const registrationData = {
+            "username": registerUsername,
+            "email": registerEmail,
+            "password": registerPassword
+        };
+
+        await userService.registerNewUser(registrationData).then(result => {
+
+            if(result.status === 200){
+                toast.current.show({ severity: 'success', summary: 'Success', detail: 'User registered successfully', life: 3000 });
+                setShowRegisterModal(false);
+            }
+            
+        }).catch(error => {
+            toast.current.show({ severity: 'error', summary: 'Error', detail: "Occured an error!", life: 3000 });
+        });
+
     };
 
     return (
@@ -112,8 +147,57 @@ export default function Login() {
                             style={{ width: '90%', backgroundColor: '#2b12d0', borderColor: '#2b12d0' }}
                         />
                     </div>
+
+                    <div style={{ marginTop: '1rem', textAlign: 'center', fontWeight: 'bold' }}>
+                        or
+                    </div>
+
+                    <div style={{ marginTop: '0.5rem', textAlign: 'center' }}>
+    <a href="#" onClick={() => setShowRegisterModal(true)} style={{ color: 'black' }}>Register</a>
+</div>
+
                 </Card>
             </div>
+
+            <Dialog header="Register" visible={showRegisterModal} onHide={() => setShowRegisterModal(false)}>
+                <div className="p-field">
+                    <InputText
+                        id="registerUsername"
+                        value={registerData.registerUsername}
+                        onChange={(e) => setRegisterData({ ...registerData, registerUsername: e.target.value })}
+                        placeholder="Username"
+                    />
+                </div>
+                <div className="p-field">
+                    <InputText
+                        id="registerEmail"
+                        value={registerData.registerEmail}
+                        onChange={(e) => setRegisterData({ ...registerData, registerEmail: e.target.value })}
+                        placeholder="Email"
+                    />
+                </div>
+                <div className="p-field">
+                    <Password
+                        id="registerPassword"
+                        value={registerData.registerPassword}
+                        onChange={(e) => setRegisterData({ ...registerData, registerPassword: e.target.value })}
+                        placeholder="Password"
+                    />
+                </div>
+                <div className="p-field">
+                    <Password
+                        id="confirmPassword"
+                        value={registerData.confirmPassword}
+                        onChange={(e) => setRegisterData({ ...registerData, confirmPassword: e.target.value })}
+                        placeholder="Confirm Password"
+                    />
+                </div>
+                {registerError && <small className="p-error">{registerError}</small>}
+                <div className='button-container'>
+                    <Button label="Register" onClick={handleRegister} />
+                </div>
+
+            </Dialog>
 
             <style jsx>{`
                 .p-field {
@@ -148,7 +232,6 @@ export default function Login() {
                     margin-top: 0.5rem;
                 }
             `}</style>
-            
         </div>
     );
 }

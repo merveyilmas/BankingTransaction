@@ -15,11 +15,12 @@ export default function MyAccounts() {
     fetchAccounts();
   }, []);
 
-  const fetchAccounts = () => {
+  const fetchAccounts = async ()  => {
 
     accountService.getAllAccountsByAuthUser().then(result => {
       if (result.status === 200) {
-        setAccounts(result.data); 
+        console.log(result.data)
+        setAccounts(result.data);
       }
     }).catch(error => {
       console.error(error);
@@ -28,19 +29,43 @@ export default function MyAccounts() {
 
   };
 
-  const handleDelete = (selectedAccounts) => {
+  const handleDelete = async(selectedAccounts) => {
+
     if (selectedAccounts && selectedAccounts.length > 0) {
-      fetchAccounts(); // Güncel hesapları çekmek için
-      toast.current.show({ severity: 'success', summary: 'Deleted', detail: 'Selected accounts have been deleted', life: 3000 });
-    }
+      try {
+          // Tüm hesapları silme işlemlerini yapacak bir dizi oluşturun
+          const deletePromises = selectedAccounts.map(account =>
+              accountService.deleteAccount(account.id)
+          );
+  
+          // Tüm silme işlemlerini bekleyin
+          await Promise.all(deletePromises);
+  
+          // Hesapları güncelleyin
+          await fetchAccounts();
+  
+          // Başarı mesajını gösterin
+          toast.current.show({  severity: 'success',  summary: 'Deleted',   detail: 'Selected accounts have been deleted', life: 3000 });
+      } catch (error) {
+          console.error(error);
+          toast.current.show({
+              severity: 'error',
+              summary: 'Error',
+              detail: error.response ? error.response.data.message : 'An error occurred',
+              life: 3000
+          });
+      }
+  }
+  
   };
 
-  const handleCreate = () => {
+  const handleCreate = async() => {
+    
+    accountService.createAccount().then(async result => {
 
-    accountService.createAccount().then(result => {
+      if (result.status === 201) {
 
-      if (result.status === 200) {
-        fetchAccounts(); // Yeni hesabı ekledikten sonra güncel hesapları çekin
+        await fetchAccounts();       
         toast.current.show({ severity: 'success', summary: 'Account Created', detail: 'New account has been created', life: 3000 });
       }
 
@@ -51,16 +76,20 @@ export default function MyAccounts() {
 
   };
 
-  const handleUpdate = (updatedAccount) => {
-    accountService.updateAccount(updatedAccount).then(result => {
+  const handleUpdate = async(updatedAccount) => {
+
+    accountService.updateAccount(updatedAccount.id, updatedAccount).then(async result => {
+
       if (result.status === 200) {
-        fetchAccounts(); // Hesap güncellemesi yaptıktan sonra güncel hesapları çekin
+        await fetchAccounts();
         toast.current.show({ severity: 'success', summary: 'Account Updated', detail: 'Account has been updated', life: 3000 });
       }
+
     }).catch(error => {
       console.error(error);
       toast.current.show({ severity: 'error', summary: 'Error', detail: error.response.data.data.message, life: 3000 });
     });
+
   };
 
   return (
@@ -73,6 +102,7 @@ export default function MyAccounts() {
           onDelete={handleDelete}
           onCreate={handleCreate}
           onUpdate={handleUpdate}
+          fetchAccounts={fetchAccounts}
         />
       </Card>
     </div>
