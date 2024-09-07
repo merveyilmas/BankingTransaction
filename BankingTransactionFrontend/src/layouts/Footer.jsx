@@ -18,13 +18,13 @@ export default function Footer() {
                 <div className="footer-content">
                     <div className="footer-socials">
                         <Button icon="pi pi-facebook" className="p-button-rounded p-button-secondary" tooltip="Facebook"
-                            onClick={() => navigateToURL('https://www.facebook.com/sunny.turkiye/?locale2=tr_TR&_rdr')} />
+                            onClick={() => navigateToURL('')} />
                         <Button icon="pi pi-twitter" className="p-button-rounded p-button-secondary" tooltip="X"
-                            onClick={() => navigateToURL('https://x.com/sunny_turkiye?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor')} />
+                            onClick={() => navigateToURL('')} />
                         <Button icon="pi pi-instagram" className="p-button-rounded p-button-secondary" tooltip="Instagram"
-                            onClick={() => navigateToURL('https://www.instagram.com/sunny.turkiye/')} />
+                            onClick={() => navigateToURL('')} />
                         <Button icon="pi pi-linkedin" className="p-button-rounded p-button-secondary" tooltip="LinkedIn"
-                            onClick={() => navigateToURL('https://www.linkedin.com/company/sunnyelektronik/mycompany/')} />
+                            onClick={() => navigateToURL('https://www.linkedin.com/in/merve-yilmas/')} />
                     </div>
                     <div className="footer-bottom">
                         <p style={{ marginTop: '1%', marginBottom: "0.2%" }}>&copy; 2024 <a href="#" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit' }}>Banking App</a></p>

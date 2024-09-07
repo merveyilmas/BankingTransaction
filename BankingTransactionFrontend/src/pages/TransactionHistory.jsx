@@ -42,11 +42,10 @@ export default function TransactionHistory() {
 
       const fetchTransactions = async () => {
 
-        transactionService.getTransactionsByAccountId().then(result => {
+        transactionService.getTransactionsByAccountId(selectedAccount).then(result => {
 
           if (result.status === 200) {
-            console.log(result.data)
-            setTransactions(result.data);
+            setTransactions(result.data.data);
           }
 
         }).catch(error => {
@@ -60,6 +59,18 @@ export default function TransactionHistory() {
     }
 
   }, [selectedAccount]);
+
+  const sourceAccountTemplate = (rowData) => {
+    return `${rowData.from.name}`;
+  };
+
+  const destinationAccountTemplate = (rowData) => {
+    return `${rowData.to.number}`;
+  };
+
+  const dateTemplate = (rowData) => {
+    return new Date(rowData.transactionDate).toLocaleString();
+  };
 
   return (
     <div style={{ width: '100%', height: "100%" }}>
@@ -89,9 +100,11 @@ export default function TransactionHistory() {
           <div>
             <h4 style={{ marginBottom: '1rem' }}>Transaction Details</h4>
             <DataTable value={transactions} paginator rows={10}>
-              <Column field="date" header="Date" />
-              <Column field="description" header="Description" />
+              <Column field="transactionDate" header="Date" body={dateTemplate} />
+              <Column header="Source Account" body={sourceAccountTemplate} />
+              <Column header="Destination Account Number" body={destinationAccountTemplate} />
               <Column field="amount" header="Amount" />
+              <Column field="status" header="Status" />
             </DataTable>
           </div>
         )}

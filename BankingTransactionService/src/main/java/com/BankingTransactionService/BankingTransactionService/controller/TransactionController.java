@@ -31,7 +31,7 @@ public class TransactionController {
 
 
     @GetMapping("/account/{accountId}")
-    public ResponseEntity<RestResponse<List<TransactionDTO>>> getTransactionsByAccountId(@PathVariable @NotBlank UUID accountId){
+    public ResponseEntity<RestResponse<List<TransactionDTO>>> getTransactionsByAccountId(@PathVariable UUID accountId){
 
         List<TransactionDTO> response = this.transactionControllerContract.getTransactionsByAccountId(accountId);
         return ResponseEntity.ok(RestResponse.of(response));

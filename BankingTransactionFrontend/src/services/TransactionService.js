@@ -23,7 +23,7 @@ export default class TransactionService {
         return axios({
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://${ipAdress}:${port}/api/transactions/${accountId}`,
+            url: `http://${ipAdress}:${port}/api/transactions/account/${accountId}`,
             headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') }
         })
     }

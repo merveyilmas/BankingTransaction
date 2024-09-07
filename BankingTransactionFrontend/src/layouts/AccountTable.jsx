@@ -58,6 +58,7 @@ const BankAccountTable = ({ accounts, onDelete, onCreate, onUpdate, fetchAccount
 
     };
 
+    console.log(selectedAccount)
     const onRowSelect = async (e) => {
 
         try {
@@ -181,6 +182,7 @@ const BankAccountTable = ({ accounts, onDelete, onCreate, onUpdate, fetchAccount
                         <p><strong>Account Name:</strong> {selectedAccount.name}</p>
                         <p><strong>Balance:</strong> {selectedAccount.balance}</p>
                         <p><strong>Created At:</strong> {selectedAccount.createdAt}</p>
+                        <p><strong>Updated At:</strong> {selectedAccount.updatedAt}</p>
                     </div>
                 )}
             </Dialog>

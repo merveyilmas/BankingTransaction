@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 public record DetailSpecificAccountResponse(String number,
                                             String name,
                                             BigDecimal balance,
-                                            LocalDateTime createdAt
+                                            LocalDateTime createdAt,
+                                            LocalDateTime updatedAt
                                             ) {
 }
