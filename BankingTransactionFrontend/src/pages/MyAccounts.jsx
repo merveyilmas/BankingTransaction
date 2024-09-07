@@ -32,18 +32,13 @@ export default function MyAccounts() {
 
     if (selectedAccounts && selectedAccounts.length > 0) {
       try {
-          // Tüm hesapları silme işlemlerini yapacak bir dizi oluşturun
           const deletePromises = selectedAccounts.map(account =>
               accountService.deleteAccount(account.id)
           );
   
-          // Tüm silme işlemlerini bekleyin
-          await Promise.all(deletePromises);
-  
-          // Hesapları güncelleyin
+          await Promise.all(deletePromises);  
           await fetchAccounts();
   
-          // Başarı mesajını gösterin
           toast.current.show({  severity: 'success',  summary: 'Deleted',   detail: 'Selected accounts have been deleted', life: 3000 });
       } catch (error) {
           console.error(error);

@@ -9,7 +9,7 @@ export default function LeftMenu() {
 
     const itemsAdmin = [
         {
-            label: 'MENU',
+            label: 'TRANSACTIONS',
             items: [
                 {
                     label: 'Accounts',

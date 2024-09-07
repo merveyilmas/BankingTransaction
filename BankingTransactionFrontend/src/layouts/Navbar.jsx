@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menubar } from 'primereact/menubar';
-import { Badge } from 'primereact/badge';
 import { Menu } from 'primereact/menu';
 import { InputSwitch } from 'primereact/inputswitch';
 import { useNavigate, Link } from "react-router-dom";
-import { useTheme } from '../utilities/ThemeContext'; // ThemeContext dosyanızın yolu
-import SessionInfo from "../enums/SessionInfo";
-
+import { useTheme } from '../utilities/ThemeContext';
+import { useSelector } from 'react-redux'
 
 export default function Navbar() {
 
@@ -14,6 +12,7 @@ export default function Navbar() {
     const navigate = useNavigate();
 
     const { theme, switchTheme } = useTheme();
+    const { authUsername } = useSelector(state => state.user)
 
 
     const items = [
@@ -52,9 +51,8 @@ export default function Navbar() {
                     label: 'Logout',
                     icon: 'pi pi-sign-out',
                     command: () => {
-                        // localStorage'dan sil
                         sessionStorage.removeItem('token');
-                        sessionStorage.removeItem('username');
+                        //sessionStorage.removeItem('username');
                         navigate('/');
                     },
                     style: { padding: '5px' }
@@ -81,7 +79,7 @@ export default function Navbar() {
                     </span>
 
 
-                    <span className="font-bold"> {sessionStorage.getItem("username")} </span>
+                    <span className="font-bold"> {authUsername} </span>
 
                 </div>
                 <Menu model={profileItems} popup ref={menuRef} />

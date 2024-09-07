@@ -1,0 +1,36 @@
+.homepage-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  .homepage-card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .homepage-card {
+    width: 100%;
+    max-width: 800px;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .welcome-message {
+    font-size: 1.5rem;
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .greeting-text {
+    font-size: 1rem;
+    text-align: center;
+  }
+  

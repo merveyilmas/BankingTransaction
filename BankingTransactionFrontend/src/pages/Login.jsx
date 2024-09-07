@@ -9,9 +9,14 @@ import UserService from '../services/UserService';
 import { jwtDecode } from 'jwt-decode';
 import { Toast } from 'primereact/toast';
 import { Dialog } from 'primereact/dialog';
+import { useDispatch } from 'react-redux'
+import { getUsername } from '../store/actions/UserAction';
+import "../styles/Login.css"
 
 export default function Login() {
+
     const toast = useRef(null);
+    const dispatch = useDispatch()
     const navigate = useNavigate();
     const userService = new UserService();
 
@@ -20,6 +25,7 @@ export default function Login() {
     const [usernameError, setUsernameError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [showRegisterModal, setShowRegisterModal] = useState(false);
+
     const [registerData, setRegisterData] = useState({
         registerUsername: '',
         registerEmail: '',
@@ -63,8 +69,11 @@ export default function Login() {
                 sessionStorage.setItem('token', token.accessToken);
 
                 const decodedUserNameFromToken = jwtDecode(token.accessToken);
-                sessionStorage.setItem('username', decodedUserNameFromToken.sub);
-                navigate("/home");
+                //sessionStorage.setItem('username', decodedUserNameFromToken.sub);
+
+                dispatch(getUsername(decodedUserNameFromToken.sub));
+
+                navigate("/home");                
                 toast.current.show({ severity: 'success', summary: 'Success', detail: result.data.message, life: 3000 });
             }
         }).catch(error => {
@@ -95,11 +104,11 @@ export default function Login() {
 
         await userService.registerNewUser(registrationData).then(result => {
 
-            if(result.status === 200){
+            if (result.status === 200) {
                 toast.current.show({ severity: 'success', summary: 'Success', detail: 'User registered successfully', life: 3000 });
                 setShowRegisterModal(false);
             }
-            
+
         }).catch(error => {
             toast.current.show({ severity: 'error', summary: 'Error', detail: "Occured an error!", life: 3000 });
         });
@@ -107,60 +116,60 @@ export default function Login() {
     };
 
     return (
+
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minHeight: '100vh', backgroundImage: 'url("/login2.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}>
             <Toast ref={toast} />
 
-            <div className="login-container" style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-                <Card style={{ width: '100%', maxWidth: '40%' }}>
-                    <div className="p-field">
-                        <div style={{ width: '100%', maxWidth: '80%', overflow: 'hidden', borderRadius: '15px', marginBottom: '2%' }}>
-                            <Image src="/logo1.png" alt="Image" width="100%" className="p-inputtext-sm p-d-block p-mb-2" />
+            <div className="login-page-container">
+                <Card className="login-page-card">
+                    <div className="login-page-field">
+
+                        <div className="login-page-logo-container">
+                            <Image src="/logo1.png" alt="Image" width="100%" />
                         </div>
 
                         <InputText
                             id="username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            className="p-inputtext-sm p-d-block p-mb-2"
+                            className="login-page-input"
                             placeholder='Enter Username'
-                            style={{ width: '90%' }}
                         />
-                        {usernameError && <small className="p-error">{usernameError}</small>}
+                        {usernameError && <small className="login-page-error">{usernameError}</small>}
                     </div>
-                    <div className="p-field p-mb-4">
-                        <Password
+
+                    <div className="login-page-field ">
+                        <InputText
                             id="password"
+                            type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            feedback={false}
-                            className="p-inputtext-sm p-d-block"
+                            className="login-page-input"
                             placeholder='Enter Password'
-                            style={{ width: '90%' }}
                         />
                         {passwordError && <small className="p-error">{passwordError}</small>}
                     </div>
-                    <div className="button-container">
+
+                    <div className="login-page-button-container">
                         <Button
                             label="Login"
                             onClick={handleLogin}
-                            className="p-button-sm"
-                            style={{ width: '90%', backgroundColor: '#2b12d0', borderColor: '#2b12d0' }}
+                            className="login-page-button"
                         />
                     </div>
 
-                    <div style={{ marginTop: '1rem', textAlign: 'center', fontWeight: 'bold' }}>
+                    <div className="login-page-or-text">
                         or
                     </div>
 
-                    <div style={{ marginTop: '0.5rem', textAlign: 'center' }}>
-    <a href="#" onClick={() => setShowRegisterModal(true)} style={{ color: 'black' }}>Register</a>
-</div>
-
+                    <div className="login-page-register-link">
+                        <a href="#" onClick={() => setShowRegisterModal(true)}>Register</a>
+                    </div>
                 </Card>
             </div>
 
             <Dialog header="Register" visible={showRegisterModal} onHide={() => setShowRegisterModal(false)}>
-                <div className="p-field">
+                <div className="login-page-field">
                     <InputText
                         id="registerUsername"
                         value={registerData.registerUsername}
@@ -168,7 +177,7 @@ export default function Login() {
                         placeholder="Username"
                     />
                 </div>
-                <div className="p-field">
+                <div className="login-page-field">
                     <InputText
                         id="registerEmail"
                         value={registerData.registerEmail}
@@ -176,7 +185,7 @@ export default function Login() {
                         placeholder="Email"
                     />
                 </div>
-                <div className="p-field">
+                <div className="login-page-field">
                     <Password
                         id="registerPassword"
                         value={registerData.registerPassword}
@@ -184,7 +193,7 @@ export default function Login() {
                         placeholder="Password"
                     />
                 </div>
-                <div className="p-field">
+                <div className="login-page-field">
                     <Password
                         id="confirmPassword"
                         value={registerData.confirmPassword}
@@ -192,46 +201,12 @@ export default function Login() {
                         placeholder="Confirm Password"
                     />
                 </div>
-                {registerError && <small className="p-error">{registerError}</small>}
-                <div className='button-container'>
+                {registerError && <small className="login-page-error">{registerError}</small>}
+                <div className='login-page-button-container'>
                     <Button label="Register" onClick={handleRegister} />
                 </div>
-
             </Dialog>
-
-            <style jsx>{`
-                .p-field {
-                    margin-bottom: 2%;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    background-image: 'url("/login1.jpg")'; 
-                    background-size: 'cover';
-                    background-repeat: 'no-repeat';
-                }
-
-                .p-field input,
-                .p-field .p-password input {
-                    width: 100%;
-                }
-
-                .button-container {
-                    display: flex;
-                    justify-content: center;
-                    margin-top: 1rem;
-                    width: 100%;
-                }
-
-                .button-container button {
-                    width: 100%;
-                }
-
-                .p-error {
-                    color: red;
-                    font-size: 0.75rem;
-                    margin-top: 0.5rem;
-                }
-            `}</style>
+        
         </div>
-    );
+    )
 }

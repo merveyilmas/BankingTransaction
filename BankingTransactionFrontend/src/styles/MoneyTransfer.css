@@ -1,0 +1,49 @@
+.money-transfer-container {
+    width: 100%;
+    height: 100%;
+}
+
+.money-transfer-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.money-transfer-card {
+    padding: 3rem;
+    padding-top: 0;
+    padding-bottom: 1rem;
+    margin: 1rem;
+}
+
+.money-transfer-field {
+    margin-bottom: 1rem;
+}
+
+.money-transfer-label {
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.money-transfer-dropdown {
+    width: 100%;
+}
+
+.money-transfer-input {
+    display: block;
+    width: 100%;
+}
+
+.money-transfer-button {
+    margin-top: 1rem;
+}
+
+.money-transfer-action-buttons {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.money-transfer-action-buttons .p-button-secondary {
+    margin-right: 1rem;
+}

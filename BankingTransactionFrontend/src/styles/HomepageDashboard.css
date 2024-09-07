@@ -1,0 +1,33 @@
+.row {
+  display: flex;
+  flex-wrap: nowrap; /* Prevents wrapping of columns */
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.col-md-2 {
+  flex: 0 0 16.666667%; /* Ensures the column takes up 2/12 (or 1/6) of the width */
+  max-width: 16.666667%;
+  padding-left: 0; 
+  padding-right: 0;
+}
+
+.col-md-10 {
+  flex: 0 0 83.333333%; /* Ensures the column takes up 10/12 (or 5/6) of the width */
+  max-width: 83.333333%;
+}
+
+.col-md-2, .col-md-10 {
+  padding: 0.5rem;
+  padding-left: 0.8%;
+}
+
+@media (max-width: 767px) {
+  .row {
+    flex-wrap: wrap; /* Allows wrapping on small screens */
+  }
+  .col-md-2, .col-md-10 {
+    flex: 0 0 100%; /* Full width on small screens */
+    max-width: 100%;
+  }
+}

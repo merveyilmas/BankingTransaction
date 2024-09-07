@@ -7,15 +7,14 @@ import { Dialog } from 'primereact/dialog';
 import { Toolbar } from 'primereact/toolbar';
 import { Toast } from 'primereact/toast';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
-import { useNavigate } from 'react-router-dom';
 import AccountService from '../services/AccountService';
 import { IconField } from "primereact/iconfield";
 import { InputIcon } from "primereact/inputicon";
+import "../styles/AccountTable.css"
 
-const BankAccountTable = ({ accounts, onDelete, onCreate, onUpdate, fetchAccounts }) => { // fetchAccounts props eklendi
+const BankAccountTable = ({ accounts, onDelete, onCreate, onUpdate, fetchAccounts }) => { 
 
     const toast = useRef(null);
-    const navigate = useNavigate();
     const accountService = new AccountService();
 
     const [selectedAccounts, setSelectedAccounts] = useState(null);
@@ -24,7 +23,7 @@ const BankAccountTable = ({ accounts, onDelete, onCreate, onUpdate, fetchAccount
     const [accountDetailsVisible, setAccountDetailsVisible] = useState(false);
     const [selectedAccount, setSelectedAccount] = useState(null);
     const [accountUpdateData, setAccountUpdateData] = useState({ name: '', balance: '' });
-    const [filteredAccounts, setFilteredAccounts] = useState(accounts); // Filtrelenmiş hesaplar
+    const [filteredAccounts, setFilteredAccounts] = useState(accounts);
 
     useEffect(() => {
      
@@ -41,7 +40,7 @@ const BankAccountTable = ({ accounts, onDelete, onCreate, onUpdate, fetchAccount
             }
 
         };
-        performSearch(); // Asenkron fonksiyonu çağır
+        performSearch();
 
     }, [globalFilter]);
 
@@ -88,9 +87,7 @@ const BankAccountTable = ({ accounts, onDelete, onCreate, onUpdate, fetchAccount
             header: 'Confirmation',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                //const newAccount = { id: accounts.length + 1, number: `AC-${Date.now()}`, name: 'New Account', balance: 0 };
                 onCreate();
-                // toast.current.show({ severity: 'success', summary: 'Account Created', detail: 'New account has been created.', life: 3000 });
             }
         });
     };
@@ -144,7 +141,7 @@ const BankAccountTable = ({ accounts, onDelete, onCreate, onUpdate, fetchAccount
             <Toolbar className="mb-4" left={toolbarTemplate} />
 
             <DataTable
-                value={globalFilter.length > 0 ? filteredAccounts : accounts} // Filtrelenmiş hesaplar gösteriliyor
+                value={globalFilter.length > 0 ? filteredAccounts : accounts}
                 selection={selectedAccounts}
                 onSelectionChange={(e) => setSelectedAccounts(e.value)}
                 header={header}
