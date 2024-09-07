@@ -94,7 +94,7 @@ const MoneyTransfers = () => {
     ];
 
     return (
-        <div style={{ padding: '2rem' }}>
+        <div style={{ width: '100%', height: "100%" }}>
             <Toast ref={toast} />
             {step === 1 && (
                 <Card>

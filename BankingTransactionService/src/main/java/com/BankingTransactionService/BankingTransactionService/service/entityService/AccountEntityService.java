@@ -3,8 +3,12 @@ package com.BankingTransactionService.BankingTransactionService.service.entitySe
 import com.BankingTransactionService.BankingTransactionService.dao.AccountRepository;
 import com.BankingTransactionService.BankingTransactionService.entity.Account;
 import com.BankingTransactionService.BankingTransactionService.entity.User;
+import com.BankingTransactionService.BankingTransactionService.exceptions.ItemNotFoundException;
 import com.BankingTransactionService.BankingTransactionService.general.BaseEntityService;
+import com.BankingTransactionService.BankingTransactionService.general.GeneralErrorMessage;
+import com.BankingTransactionService.BankingTransactionService.request.MoneyTransferRequest;
 import com.BankingTransactionService.BankingTransactionService.service.AuthService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -67,5 +71,27 @@ public class AccountEntityService extends BaseEntityService<Account, UUID, Accou
         List<Account> accounts = accountRepository.findByUser(user);
 
         return accounts;
+    }
+
+    public Account getAccountByNumber(String number) {
+        return accountRepository.findByNumber(number);
+    }
+
+    @Transactional
+    public void transferMoney(Account fromAccount, Account toAccount, BigDecimal amount) {
+
+        if(toAccount == null || fromAccount == null){
+            throw new ItemNotFoundException(GeneralErrorMessage.ITEM_NOT_FOUND);
+        }
+
+        if (fromAccount.getBalance().compareTo(amount) < 0) {
+            throw new RuntimeException("Yetersiz bakiye!");
+        }
+
+        fromAccount.setBalance(fromAccount.getBalance().subtract(amount));
+        toAccount.setBalance(toAccount.getBalance().add(amount));
+
+        accountRepository.save(fromAccount);
+        accountRepository.save(toAccount);
     }
 }

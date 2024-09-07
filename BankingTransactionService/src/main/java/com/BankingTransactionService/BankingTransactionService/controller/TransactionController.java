@@ -3,7 +3,7 @@ package com.BankingTransactionService.BankingTransactionService.controller;
 import com.BankingTransactionService.BankingTransactionService.controller.contract.TransactionControllerContract;
 import com.BankingTransactionService.BankingTransactionService.dto.TransactionDTO;
 import com.BankingTransactionService.BankingTransactionService.general.RestResponse;
-import com.BankingTransactionService.BankingTransactionService.request.TransferRequest;
+import com.BankingTransactionService.BankingTransactionService.request.MoneyTransferRequest;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,10 +23,10 @@ public class TransactionController {
     }
 
     @PostMapping("/transfer")
-    public ResponseEntity<String> transferMoney(@RequestBody TransferRequest transferRequest){
+    public ResponseEntity<RestResponse<String>> transferMoney(@RequestBody MoneyTransferRequest moneyTransferRequest){
 
-        this.transactionControllerContract.transferMoney(transferRequest);
-        return new ResponseEntity<>("Transfer successful", HttpStatus.OK);
+        this.transactionControllerContract.transferMoney(moneyTransferRequest);
+        return ResponseEntity.ok(RestResponse.of("Transfer successful"));
     }
 
 

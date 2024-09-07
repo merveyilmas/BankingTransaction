@@ -96,7 +96,7 @@ export default function MyAccounts() {
     <div style={{ width: '100%', height: "100%" }}>
       <Toast ref={toast} />
       <Card>
-        <h3 style={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>Accounts</h3>
+        <h3 style={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>My Accounts</h3>
         <AccountTable
           accounts={accounts}
           onDelete={handleDelete}

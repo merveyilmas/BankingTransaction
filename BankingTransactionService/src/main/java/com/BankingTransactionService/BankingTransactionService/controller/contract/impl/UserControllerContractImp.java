@@ -4,20 +4,14 @@ package com.BankingTransactionService.BankingTransactionService.controller.contr
 import com.BankingTransactionService.BankingTransactionService.controller.contract.UserControllerContract;
 import com.BankingTransactionService.BankingTransactionService.dto.UserDTO;
 import com.BankingTransactionService.BankingTransactionService.entity.User;
-import com.BankingTransactionService.BankingTransactionService.exceptions.ItemNotFoundException;
-import com.BankingTransactionService.BankingTransactionService.general.GeneralErrorMessage;
 import com.BankingTransactionService.BankingTransactionService.mapper.UserMapper;
 import com.BankingTransactionService.BankingTransactionService.request.UserSaveRequest;
-import com.BankingTransactionService.BankingTransactionService.request.UserUpdateRequest;
 import com.BankingTransactionService.BankingTransactionService.service.entityService.UserEntityService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 
 @Service
@@ -27,6 +21,7 @@ public class UserControllerContractImp implements UserControllerContract {
     private final UserEntityService userEntityService;
 
     @Override
+    @Transactional
     public UserDTO registerNewUser(UserSaveRequest saveRequest) {
 
         User user = UserMapper.INSTANCE.converToUser(saveRequest);

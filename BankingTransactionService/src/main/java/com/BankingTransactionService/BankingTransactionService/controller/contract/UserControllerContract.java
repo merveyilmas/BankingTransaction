@@ -4,10 +4,8 @@ package com.BankingTransactionService.BankingTransactionService.controller.contr
 
 import com.BankingTransactionService.BankingTransactionService.dto.UserDTO;
 import com.BankingTransactionService.BankingTransactionService.request.UserSaveRequest;
-import com.BankingTransactionService.BankingTransactionService.request.UserUpdateRequest;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface UserControllerContract {
 

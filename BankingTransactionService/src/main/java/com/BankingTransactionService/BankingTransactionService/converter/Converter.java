@@ -1,6 +1,5 @@
 package com.BankingTransactionService.BankingTransactionService.converter;
 
-import com.BankingTransactionService.BankingTransactionService.dto.AccountDTO;
 import com.BankingTransactionService.BankingTransactionService.dto.UserDTO;
 import com.BankingTransactionService.BankingTransactionService.entity.Account;
 import com.BankingTransactionService.BankingTransactionService.entity.User;

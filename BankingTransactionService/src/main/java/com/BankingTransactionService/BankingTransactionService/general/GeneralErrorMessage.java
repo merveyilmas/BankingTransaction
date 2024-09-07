@@ -3,9 +3,7 @@ package com.BankingTransactionService.BankingTransactionService.general;
 public enum GeneralErrorMessage implements BaseErrorMessage {
 
     ITEM_NOT_FOUND("Item not found!"),
-    FILE_NOT_FOUND("The file not exist!"),
-    FILE_DELETE_ERROR("File could not be deleted!"),
-    FILE_UPLOAD_ERROR("File upload failed!");
+    ACCOUNT_NOT_FOUND("Account not found!");
 
     private final String message;
 

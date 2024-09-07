@@ -69,7 +69,7 @@ export default function TransactionHistory() {
   }, [selectedAccount]);
 
   return (
-    <div style={{ width: '100%', height: "100%", padding: '2rem' }}>
+    <div style={{ width: '100%', height: "100%" }}>
       <Toast ref={toast} />
 
       <Card>

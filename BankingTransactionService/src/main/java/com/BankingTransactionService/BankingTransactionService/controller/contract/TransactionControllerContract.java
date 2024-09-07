@@ -1,16 +1,13 @@
 package com.BankingTransactionService.BankingTransactionService.controller.contract;
 
 import com.BankingTransactionService.BankingTransactionService.dto.TransactionDTO;
-import com.BankingTransactionService.BankingTransactionService.request.TransferRequest;
-import jakarta.validation.constraints.NotBlank;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import com.BankingTransactionService.BankingTransactionService.request.MoneyTransferRequest;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface TransactionControllerContract {
 
-    void transferMoney(TransferRequest transferRequest);
+    void transferMoney(MoneyTransferRequest moneyTransferRequest);
     List<TransactionDTO> getTransactionsByAccountId(UUID accountId);
 }

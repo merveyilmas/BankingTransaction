@@ -12,7 +12,7 @@ export default function LeftMenu() {
             label: 'MENU',
             items: [
                 {
-                    label: 'My Accounts',
+                    label: 'Accounts',
                     icon: 'pi pi-wallet',
                     command: () => {
                         navigate('/home/my-accounts');

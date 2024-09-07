@@ -3,11 +3,8 @@ package com.BankingTransactionService.BankingTransactionService.controller.contr
 import com.BankingTransactionService.BankingTransactionService.controller.contract.AccountControllerContract;
 import com.BankingTransactionService.BankingTransactionService.converter.Converter;
 import com.BankingTransactionService.BankingTransactionService.dto.AccountDTO;
-import com.BankingTransactionService.BankingTransactionService.dto.UserDTO;
 import com.BankingTransactionService.BankingTransactionService.entity.Account;
-import com.BankingTransactionService.BankingTransactionService.entity.User;
 import com.BankingTransactionService.BankingTransactionService.mapper.AccountMapper;
-import com.BankingTransactionService.BankingTransactionService.mapper.UserMapper;
 import com.BankingTransactionService.BankingTransactionService.request.AccountUpdateRequest;
 import com.BankingTransactionService.BankingTransactionService.response.AccountResponse;
 import com.BankingTransactionService.BankingTransactionService.response.AllAccountsResponse;
@@ -15,6 +12,7 @@ import com.BankingTransactionService.BankingTransactionService.response.DetailSp
 import com.BankingTransactionService.BankingTransactionService.service.entityService.AccountEntityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -27,6 +25,7 @@ public class AccountControllerContractImpl implements AccountControllerContract 
     private final AccountEntityService accountEntityService;
     private final Converter converter;
     @Override
+    @Transactional
     public AccountDTO createAccount() {
         Account account = accountEntityService.createAccount();
         return AccountMapper.INSTANCE.converToAccountDTO(account);
@@ -39,6 +38,7 @@ public class AccountControllerContractImpl implements AccountControllerContract 
     }
 
     @Override
+    @Transactional
     public AccountDTO updateAccount(UUID id, AccountUpdateRequest request) {
         Account account = this.accountEntityService.findByIdWithControl(id);
         AccountMapper.INSTANCE.updateAccountFields(account, request);
@@ -48,6 +48,7 @@ public class AccountControllerContractImpl implements AccountControllerContract 
     }
 
     @Override
+    @Transactional
     public void deleteAccount(UUID id) {
         this.accountEntityService.deleteById(id);
     }
