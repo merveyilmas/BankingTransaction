@@ -20,7 +20,7 @@ export default function MyAccounts() {
 
   const fetchAccounts = async ()  => {
 
-    dispatch(getAllAccountsByAuthUser());
+    dispatch(getAllAccountsByAuthUser()); 
 
     if(accounts.length === 0){
         toast.current.show({ severity: 'error', summary: 'Error', detail: 'Accounts can not fetch!', life: 3000 });
