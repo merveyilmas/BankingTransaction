@@ -58,6 +58,16 @@ export default class AccountService {
             headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') }
         })
     }
+    
+    getAccountByNumber(accountNumber) {
+
+        return axios({
+            method: 'get',
+            maxBodyLength: Infinity,
+            url: `http://${ipAdress}:${port}/api/accounts/with-number/${accountNumber}`,
+            headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') }
+        })
+    }
 
     getAllAccountsByAuthUser() {
 

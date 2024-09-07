@@ -3,29 +3,28 @@ import { Card } from 'primereact/card';
 import { Toast } from 'primereact/toast';
 import AccountTable from '../layouts/AccountTable';
 import AccountService from '../services/AccountService';
+import { useSelector, useDispatch } from 'react-redux'
+import { getAllAccountsByAuthUser } from '../store/actions/AccountAction';
 
 export default function MyAccounts() {
 
   const toast = useRef(null);
+  const dispatch = useDispatch()
   const accountService = new AccountService();
 
-  const [accounts, setAccounts] = useState([]);
+  const { accounts } = useSelector(state => state.account)
 
   useEffect(() => {
     fetchAccounts();
-  }, []);
+  }, [dispatch]);
 
   const fetchAccounts = async ()  => {
 
-    accountService.getAllAccountsByAuthUser().then(result => {
-      if (result.status === 200) {
-        console.log(result.data)
-        setAccounts(result.data);
-      }
-    }).catch(error => {
-      console.error(error);
-      toast.current.show({ severity: 'error', summary: 'Error', detail: error.response.data.data.message, life: 3000 });
-    });
+    dispatch(getAllAccountsByAuthUser());
+
+    if(accounts.length === 0){
+        toast.current.show({ severity: 'error', summary: 'Error', detail: 'Accounts can not fetch!', life: 3000 });
+    }
 
   };
 

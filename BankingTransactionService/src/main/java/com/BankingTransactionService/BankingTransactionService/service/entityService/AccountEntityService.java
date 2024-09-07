@@ -21,8 +21,8 @@ public class AccountEntityService extends BaseEntityService<Account, UUID, Accou
     private final AccountRepository accountRepository;
     private final AuthService authService;
 
-    protected AccountEntityService(AccountRepository repository, AccountRepository accountRepository, AuthService authService) {
-        super(repository);
+    protected AccountEntityService(AccountRepository accountRepository, AuthService authService) {
+        super(accountRepository);
         this.accountRepository = accountRepository;
         this.authService = authService;
     }

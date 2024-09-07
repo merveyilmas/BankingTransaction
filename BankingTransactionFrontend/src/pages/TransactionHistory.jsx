@@ -6,36 +6,29 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import AccountService from '../services/AccountService';
 import TransactionService from '../services/TransactionService';
+import { useSelector, useDispatch } from 'react-redux'
+import { getAllAccountsByAuthUser } from '../store/actions/AccountAction';
 
 export default function TransactionHistory() {
 
   const toast = useRef(null);
+  const dispatch = useDispatch()
   const accountService = new AccountService();
   const transactionService = new TransactionService();
 
-  const [accounts, setAccounts] = useState([]);
+  const { accounts } = useSelector(state => state.account)
   const [selectedAccount, setSelectedAccount] = useState(null);
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
 
-    const fetchAccounts = async () => {
+    dispatch(getAllAccountsByAuthUser());
 
-      accountService.getAllAccountsByAuthUser().then(result => {
+    if (accounts.length === 0) {
+      toast.current.show({ severity: 'error', summary: 'Error', detail: 'Accounts can not fetch!', life: 3000 });
+    }
 
-        if (result.status === 200) {
-          setAccounts(result.data);
-        }
-
-      }).catch(error => {
-        console.error(error);
-        toast.current.show({ severity: 'error', summary: 'Error', detail: error.response.data.data.message, life: 3000 });
-      });
-
-    };
-
-    fetchAccounts();
-  }, []);
+  }, [dispatch]);
 
   const accountOptions = accounts.map(account => ({
     label: account.name,
@@ -43,7 +36,7 @@ export default function TransactionHistory() {
   }));
 
   useEffect(() => {
-    
+
     if (selectedAccount) {
       console.log(selectedAccount)
 
@@ -58,9 +51,9 @@ export default function TransactionHistory() {
 
         }).catch(error => {
           console.error(error);
-           toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed to load transactions', life: 3000 });
+          toast.current.show({ severity: 'error', summary: 'Error', detail: 'Failed to load transactions', life: 3000 });
         });
-  
+
       };
 
       fetchTransactions();

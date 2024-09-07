@@ -61,6 +61,13 @@ public class AccountControllerContractImpl implements AccountControllerContract 
     }
 
     @Override
+    public AccountResponse getAccountByNumber(String number) {
+        Account account = this.accountEntityService.getAccountByNumber(number);
+
+        return converter.convertAccountToAccountResponse(account);
+    }
+
+    @Override
     public List<AllAccountsResponse> getAllAccountsByUser() {
         List<Account> accounts = this.accountEntityService.getAllAccountsByUser();
         return accounts.stream().map(converter::convertAccountToAllAccountsDTO).collect(Collectors.toList());

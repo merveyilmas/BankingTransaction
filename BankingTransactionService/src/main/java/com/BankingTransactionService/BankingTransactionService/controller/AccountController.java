@@ -53,6 +53,12 @@ public class AccountController {
         return ResponseEntity.ok(account);
     }
 
+    @GetMapping("/with-number/{number}")
+    public ResponseEntity<AccountResponse> getAccountByNumber(@PathVariable String number) {
+        AccountResponse account = this.accountControllerContract.getAccountByNumber(number);
+        return ResponseEntity.ok(account);
+    }
+
     @GetMapping
     public ResponseEntity<List<AllAccountsResponse>> getAllAccountsByUser() {
         List<AllAccountsResponse> accounts = this.accountControllerContract.getAllAccountsByUser();

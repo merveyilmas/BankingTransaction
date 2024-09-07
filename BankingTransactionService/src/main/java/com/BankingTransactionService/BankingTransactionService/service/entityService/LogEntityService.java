@@ -14,8 +14,8 @@ public class LogEntityService extends BaseEntityService<Log, Long, LogRepository
     private final AuthService authService;
     private final LogRepository logRepository;
 
-    protected LogEntityService(LogRepository repository, AuthService authService, LogRepository logRepository) {
-        super(repository);
+    protected LogEntityService(AuthService authService, LogRepository logRepository) {
+        super(logRepository);
         this.authService = authService;
         this.logRepository = logRepository;
     }
