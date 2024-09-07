@@ -19,8 +19,8 @@
 
 .login-page-logo-container {
     width: 100%;
-    max-width: 80%;
-    aspect-ratio: 16/9;
+    max-width: 60%;
+    aspect-ratio: 5/5;
     overflow: hidden;
     border-radius: 15px;
     margin-bottom: 2%;

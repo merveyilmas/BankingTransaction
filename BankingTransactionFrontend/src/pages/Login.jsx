@@ -117,7 +117,7 @@ export default function Login() {
 
     return (
 
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minHeight: '100vh', backgroundImage: 'url("/login2.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minHeight: '100vh', backgroundImage: 'url("/login.jpg")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}>
             <Toast ref={toast} />
 
             <div className="login-page-container">
@@ -125,7 +125,7 @@ export default function Login() {
                     <div className="login-page-field">
 
                         <div className="login-page-logo-container">
-                            <Image src="/logo1.png" alt="Image" width="100%" />
+                            <Image src="/login-logo.png" alt="Image" width="100%" />
                         </div>
 
                         <InputText

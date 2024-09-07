@@ -61,7 +61,7 @@ export default function Navbar() {
         }
     ];
 
-    const start = <img alt="logo_alt" src="/logo2-1.png" height="40" className="mr-2" ></img>;
+    const start = <img alt="logo_alt" src="/bank-logo.png" height="40" className="mr-2" ></img>;
 
     const end = (
 
