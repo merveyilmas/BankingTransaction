@@ -118,7 +118,7 @@ const BankAccountTable = ({ accounts, onDelete, onCreate, onUpdate, fetchAccount
                     type="search"
                     onInput={(e) => setGlobalFilter(e.target.value)}
                     placeholder="Search by Account Number or Name"
-                    style={{ width: '23rem' }}
+                    style={{ width: '50%' }}
                 />
             </IconField>
         </div>
