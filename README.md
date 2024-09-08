@@ -35,8 +35,8 @@ Transaction History bölümünden ise kullanıcı seçtiği hesabına ait başar
 
 ## Kullanım
 Oluşturduğum "swagger docs" klasöründe projenin apilerine ulaşabilirsiniz. 
-- [Bu linke](https://drive.google.com/file/d/1zGXXBI9X5-WrQiR9xq6_KfKuVQDZatII/view?usp=sharing) tıklayarak projenin desktop görünümünde çalışır halini görüntüleyebilirsiniz.
-- [Bu linke](https://drive.google.com/file/d/1H57LrwPZuVbiOzsP1WkFIt081lqiiFb1/view?usp=sharing) tıklayarak projenin mobile görünümünde çalışır halini görüntüleyebilirsiniz.
+- [Bu linke](https://drive.google.com/file/d/1vjPqxftywvVfoqBRfnBRkNsO8EFI-t_O/view?usp=sharing) tıklayarak projenin desktop görünümünde çalışır halini görüntüleyebilirsiniz.
+- [Bu linke](https://drive.google.com/file/d/1P4epv3iDSb63FFN-Zde_3FdqyGMNUq71/view?usp=sharing) tıklayarak projenin mobile görünümünde çalışır halini görüntüleyebilirsiniz.
 
 ## Lisans
 Bu proje MIT lisansı altında lisanslanmıştır. Daha fazla bilgi için LICENSE dosyasını inceleyiniz.
