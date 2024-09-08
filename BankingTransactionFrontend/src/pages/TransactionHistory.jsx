@@ -4,7 +4,6 @@ import { Toast } from 'primereact/toast';
 import { Dropdown } from 'primereact/dropdown';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import AccountService from '../services/AccountService';
 import TransactionService from '../services/TransactionService';
 import { useSelector, useDispatch } from 'react-redux'
 import { getAllAccountsByAuthUser } from '../store/actions/AccountAction';
@@ -13,7 +12,6 @@ export default function TransactionHistory() {
 
   const toast = useRef(null);
   const dispatch = useDispatch()
-  const accountService = new AccountService();
   const transactionService = new TransactionService();
 
   const { accounts } = useSelector(state => state.account)
@@ -25,7 +23,7 @@ export default function TransactionHistory() {
     dispatch(getAllAccountsByAuthUser());
 
     if (accounts.length === 0) {
-      toast.current.show({ severity: 'error', summary: 'Error', detail: 'Accounts can not fetch!', life: 3000 });
+      //toast.current.show({ severity: 'error', summary: 'Error', detail: 'Accounts can not fetch!', life: 3000 });
     }
 
   }, [dispatch]);
