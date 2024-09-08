@@ -23,15 +23,15 @@ Transaction History bölümünden ise kullanıcı seçtiği hesabına ait başar
 İlk olarak tüm proje dosyalarını indiriniz.
 - git clone [https://github.com/merveyilmas/N11BootcampFinalProject.git](https://github.com/merveyilmas/OreDataAssignment.git)
 1. Backend proje kurulum;
-- Sisteminizde Java21, MySql veritabanı kurulu olduğundan emin olunuz.
-- İndirdiğiniz proje dosyaları içerisinde BankingTransactionService backend projesini idenizde (ör. IntellijIdea) açınız.
-- resources/ dizini altındaki Application.properties dosyasından kendi veritabanı bilgilerini güncelleyiniz.
-- Ardından idenizde projeyi çalıştırabilirsiniz.
+  - Sisteminizde Java21, MySql veritabanı kurulu olduğundan emin olunuz.
+  - İndirdiğiniz proje dosyaları içerisinde BankingTransactionService backend projesini idenizde (ör. IntellijIdea) açınız.
+  - resources/ dizini altındaki Application.properties dosyasından kendi veritabanı bilgilerini güncelleyiniz.
+  - Ardından idenizde projeyi çalıştırabilirsiniz.
 2.  Frontend proje kurulum;
-- Sisteminizde Node.js kurulu olduğundan emin olunuz.
-- İndirdiğiniz proje dosyaları içerisinde BankingTransactionFrontend frontend projesini idenizde (ör. VsCode) açınız.
-- Ide'nizin terminal ekranını açınız. İlk olarak 'npm install' komutu ile proje bağımlılıklarınızı yükleyiniz.
-- Ardından proje klasörünüzün dizininde 'npm start' ile projenizi çalıştırabilirsiniz.
+  - Sisteminizde Node.js kurulu olduğundan emin olunuz.
+  - İndirdiğiniz proje dosyaları içerisinde BankingTransactionFrontend frontend projesini idenizde (ör. VsCode) açınız.
+  - Ide'nizin terminal ekranını açınız. İlk olarak 'npm install' komutu ile proje bağımlılıklarınızı yükleyiniz.
+  - Ardından proje klasörünüzün dizininde 'npm start' ile projenizi çalıştırabilirsiniz.
 
 ## Kullanım
 Oluşturduğum "swagger docs" klasöründe projenin apilerine ulaşabilirsiniz. 
