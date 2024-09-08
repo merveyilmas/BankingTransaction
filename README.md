@@ -30,7 +30,7 @@ Transaction History bölümünden ise kullanıcı seçtiği hesabına ait başar
 2.  Frontend proje kurulum;
   - Sisteminizde Node.js kurulu olduğundan emin olunuz.
   - İndirdiğiniz proje dosyaları içerisinde BankingTransactionFrontend frontend projesini idenizde (ör. VsCode) açınız.
-  - Ide'nizin terminal ekranını açınız. İlk olarak 'npm install' komutu ile proje bağımlılıklarınızı yükleyiniz.
+  - Ide'nizin terminal ekranını açınız. İlk olarak 'npm install' komutu ile proje bağımlılıklarını yükleyiniz.
   - Ardından proje klasörünüzün dizininde 'npm start' ile projenizi çalıştırabilirsiniz.
 
 ## Kullanım
