@@ -1,8 +1,8 @@
 .footer-container {
-    background-color: var(--footer-background-color); /* Tema değişkeni */
-    color: var(--footer-text-color); /* Tema değişkeni */
+    background-color: var(--footer-background-color); 
+    color: var(--footer-text-color); 
     text-align: center;
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2); /* Box shadow efekti */
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
 }
 
 .footer-content {
@@ -25,25 +25,21 @@
     flex-direction: column;   
 }
 
-
-/* Genel link stilleri */
 .footer-bottom a {
-    color: var(--footer-link-color); /* Tema rengine göre ayarlanacak değişken */
+    color: var(--footer-link-color);
     text-decoration: underline;
     transition: color 0.3s ease;
 }
 
 .footer-bottom a:hover {
-    color: var(--footer-link-hover-color); /* Hover için değişken */
+    color: var(--footer-link-hover-color); 
 }
 
-/* Dark Blue Tema */
 .theme-lara-dark-blue {
     --footer-link-color: #fff;
     --footer-link-hover-color: #ddd;
 }
 
-/* Diğer Temalar */
 .theme-light {
     --footer-link-color: #ccc;
     --footer-link-hover-color: #aaa;

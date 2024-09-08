@@ -99,9 +99,6 @@ const MoneyTransfers = () => {
 
             if (result.status === 200) {
 
-                console.log(result.data)
-                toast.current.show({ severity: 'success', summary: 'Success', detail: 'Transfer completed successfully!', life: 3000 });
-
                 setStep(1);
                 setSourceAccount(null);
                 setDestinationAccountNumber('');
@@ -109,6 +106,7 @@ const MoneyTransfers = () => {
                 setDestinationAccountInfo(null);
 
                 navigate("/home/my-accounts")
+                toast.current.show({ severity: 'success', summary: 'Success', detail: 'Transfer completed successfully!', life: 3000 });
             }
 
         }).catch(error => {
