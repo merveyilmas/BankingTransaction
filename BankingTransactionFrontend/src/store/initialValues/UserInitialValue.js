@@ -1,1 +1,1 @@
-export const authUsername = ""
+export const authUsername = sessionStorage.getItem("username")

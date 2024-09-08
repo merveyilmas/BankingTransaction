@@ -6,6 +6,7 @@ import { Card } from 'primereact/card';
 import { Toast } from 'primereact/toast';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux'
 import { getAllAccountsByAuthUser } from '../store/actions/AccountAction';
 import TransactionService from '../services/TransactionService';
@@ -15,7 +16,8 @@ import "../styles/MoneyTransfer.css"
 const MoneyTransfers = () => {
 
     const toast = useRef(null);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const transactionService = new TransactionService();
     const accountService = new AccountService();
 
@@ -105,6 +107,8 @@ const MoneyTransfers = () => {
                 setDestinationAccountNumber('');
                 setAmount('');
                 setDestinationAccountInfo(null);
+
+                navigate("/home/my-accounts")
             }
 
         }).catch(error => {

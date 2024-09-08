@@ -69,7 +69,7 @@ export default function Login() {
                 sessionStorage.setItem('token', token.accessToken);
 
                 const decodedUserNameFromToken = jwtDecode(token.accessToken);
-                //sessionStorage.setItem('username', decodedUserNameFromToken.sub);
+                sessionStorage.setItem('username', decodedUserNameFromToken.sub);
 
                 dispatch(getUsername(decodedUserNameFromToken.sub));
 

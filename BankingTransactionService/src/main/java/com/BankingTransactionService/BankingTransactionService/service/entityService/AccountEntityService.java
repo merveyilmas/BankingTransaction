@@ -56,10 +56,11 @@ public class AccountEntityService extends BaseEntityService<Account, UUID, Accou
 
     public List<Account> searchAccount(String nameOrNumber) {
 
-        List<Account> accounts = accountRepository.findByNameContaining(nameOrNumber);
+        User user = this.authService.getUserInfo();
+        List<Account> accounts = accountRepository.findByUserAndNameContaining(user, nameOrNumber);
 
         if (accounts.isEmpty()) {
-            accounts = accountRepository.findByNumberContaining(nameOrNumber);
+            accounts = accountRepository.findByUserAndNumberContaining(user, nameOrNumber);
         }
 
         return accounts;

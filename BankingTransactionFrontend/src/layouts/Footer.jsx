@@ -13,7 +13,7 @@ export default function Footer() {
     };
 
     return (
-        <>      
+        <>
             <div className="footer-container">
                 <div className="footer-content">
                     <div className="footer-socials">
@@ -24,14 +24,14 @@ export default function Footer() {
                         <Button icon="pi pi-instagram" className="p-button-rounded p-button-secondary" tooltip="Instagram"
                             onClick={() => navigateToURL('')} />
                         <Button icon="pi pi-linkedin" className="p-button-rounded p-button-secondary" tooltip="LinkedIn"
-                            onClick={() => navigateToURL('https://www.linkedin.com/in/merve-yilmas/')} />
+                            onClick={() => window.open('https://www.linkedin.com/in/merve-yilmas/', '_blank')} />
                     </div>
                     <div className="footer-bottom">
                         <p style={{ marginTop: '1%', marginBottom: "0.2%" }}>&copy; 2024 <a href="#" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit' }}>Banking App</a></p>
                         <p> Developed By Merve</p>
                     </div>
                 </div>
-            </div>      
+            </div>
         </>
     );
 }

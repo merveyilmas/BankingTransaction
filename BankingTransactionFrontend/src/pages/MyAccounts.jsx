@@ -23,7 +23,7 @@ export default function MyAccounts() {
     dispatch(getAllAccountsByAuthUser()); 
 
     if(accounts.length === 0){
-        toast.current.show({ severity: 'error', summary: 'Error', detail: 'Accounts can not fetch!', life: 3000 });
+        //toast.current.show({ severity: 'error', summary: 'Error', detail: 'Accounts can not fetch!', life: 3000 });
     }
 
   };

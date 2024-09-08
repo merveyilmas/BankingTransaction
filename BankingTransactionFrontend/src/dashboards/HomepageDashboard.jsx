@@ -35,13 +35,11 @@ export default function HomepageDashboard() {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
 
-    if (token === null || authUsername === null) {
+    if (token === null || authUsername === "") {
       navigate("/");
     }
 
   }, []);
-
-  console.log("token :" + sessionStorage.getItem("token"));
 
   const [screenWidth, setScreenWidth] = useState(window.innerWidth); //tarayıcı penceresinin mevcut genişliği  
   const [screenHeight, setScreenHeight] = useState(window.innerHeight); // tarayıcı penceresinin mevcut yüksekliği
